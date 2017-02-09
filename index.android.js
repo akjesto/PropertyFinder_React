@@ -1,53 +1,43 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-
-export default class PropertyFinder extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
+'use strict';
+var React = require('react')
+var ReactNative = require('react-native')
+var SearchPage = require('./SearchPage.js');
+var SearchResults = require('./SearchResults.js');
+var styles = ReactNative.StyleSheet.create({
+  text:{
+    color: 'black',
+    backgroundColor: 'white',
+    fontSize: 14,
+    margin: 80
+  },
+  container:{
+  	flex:1
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });
 
-AppRegistry.registerComponent('PropertyFinder', () => PropertyFinder);
+class HelloWorld extends React.Component {
+  render() {
+  return (<ReactNative.Text style={styles.text}>Hello World (Again)</ReactNative.Text>);
+  }
+}
+class PropertyFinderApp extends React.Component {
+
+
+render() {
+       return (<ReactNative.Navigator tintColor='#FF6600' initialRoute={{
+           id: 'SearchPage'
+       }} renderScene={this.renderScene}/>);
+}
+   renderScene(route, _navigator) {
+         switch (route.id) {
+           case 'SearchPage':
+               return (<SearchPage navigator={_navigator}/>);
+           case 'SearchResults':
+               return (<SearchResults navigator={_navigator}/>);
+
+
+       }
+   }
+
+}
+ReactNative.AppRegistry.registerComponent('PropertyFinder',function() {return PropertyFinderApp});
