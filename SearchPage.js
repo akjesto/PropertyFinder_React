@@ -123,10 +123,14 @@ class SearchPage extends Component {
     //   this.setState({message: 'Location not recognized; please try again'})
     // }
   this.props.navigator.push({
-    title: 'Results',
-    component: SearchResults,
+    id:'SearchResults',
     passProps:{listings: response.listings}
-    });
+  });
+    // this.props.navigator.push({
+    //   title: 'Results',
+    //   component: SearchResults,
+    //   passProps:{listings: response.listings}
+    //   });
   }
   onSearchPressed(){
     var query = urlForQueryAndPage('place_name', this.state.searchString, 1);
