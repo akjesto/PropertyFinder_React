@@ -7,6 +7,7 @@ import {
     View,
     TouchableHighlight,
     ActivityIndicator,
+    Platform,
     Image
 } from 'react-native'
 var SearchResults = require('./SearchResults');
@@ -117,27 +118,25 @@ class SearchPage extends Component {
   }
   _handleResponse(response){
     this.setState({isLoading:false,message:''});
-    // if (response.application_response_code.substr(0,1) === '1') {
-    //   console.log('Properties found: ' +  response.listings.length);
-    // }else {
-    //   this.setState({message: 'Location not recognized; please try again'})
-    // }
-  this.props.navigator.push({
-    id:'SearchResults',
-    passProps:{listings: response.listings}
-  });
-    // this.props.navigator.push({
-    //   title: 'Results',
-    //   component: SearchResults,
-    //   passProps:{listings: response.listings}
-    //   });
+
+    if (Platform.OS === 'android'){
+      this.props.navigator.push({
+        id:'SearchResults',
+        passProps:{listings: response.listings}
+      });
+    }
+    else{
+      this.props.navigator.push({
+        title: 'Results',
+        component: SearchResults,
+        passProps:{listings: response.listings}
+        });
+    }
   }
   onSearchPressed(){
     var query = urlForQueryAndPage('place_name', this.state.searchString, 1);
     this._executeQuery(query);
   }
-
-
     render() {
     var spinner = this.state.isLoading ?
     ( <ActivityIndicator

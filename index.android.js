@@ -33,7 +33,7 @@ render() {
            case 'SearchPage':
                return (<SearchPage navigator={_navigator}/>);
            case 'SearchResults':
-               return (<SearchResults navigator={_navigator}/>);
+               return (<SearchResults navigator={_navigator} listings={route.passProps.listings}/>);
 
 
        }
